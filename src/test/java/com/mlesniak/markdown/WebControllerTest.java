@@ -28,7 +28,7 @@ public class WebControllerTest {
 
         // Cornes cases.
         checkFilename("foo-html-explanation.html", "foo-html-explanation.md");
-        // checkFilename("foo.html-explanation.html", "foo.html-explanation.md");
+        checkFilename("foo.html-explanation.html", "foo.html-explanation.md");
     }
 
     private void checkFilename(String parameter, String expected) {

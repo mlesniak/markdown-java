@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
     String convertFilename(Optional<String> name) {
         var filename = name.orElseGet(() -> "index.html");
-        filename = filename.replaceAll("\\.html", ".md");
+        filename = filename.replaceAll("\\.html$", ".md");
         return filename;
     }
 }
