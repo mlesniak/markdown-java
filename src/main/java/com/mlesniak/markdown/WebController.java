@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,11 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class WebController {
     Logger LOG = LoggerFactory.getLogger(WebController.class);
 
-    @RequestMapping("/{name}")
     @ResponseBody
-    public byte[] requestMarkdown(@PathVariable("name") String name) throws IOException {
+    @RequestMapping({"/{name}", "/"})
+    public byte[] requestMarkdown(@PathVariable(name="name", required = false) Optional<String> name) throws IOException {
         LOG.info("Markdown file '{}' requested", name);
-        var content = Files.readString(Path.of(name));
+
+        var filename = name.orElseGet(() -> "index.html");
+        var content = Files.readString(Path.of(filename));
         return content.getBytes(Charset.defaultCharset());
     }
 }
