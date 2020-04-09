@@ -22,8 +22,7 @@ public class WebController {
 
     @ResponseBody
     @RequestMapping({ "/{name}", "/" })
-    public byte[] requestMarkdown(@PathVariable(name = "name", required = false) Optional<String> name)
-            throws IOException {
+    public byte[] requestMarkdown(@PathVariable(name = "name", required = false) Optional<String> name) throws IOException {
         LOG.info("Markdown file '{}' requested", name);
 
         // Read content from markdown file.
