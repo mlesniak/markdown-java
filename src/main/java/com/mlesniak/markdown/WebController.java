@@ -24,8 +24,9 @@ public class WebController {
     Logger LOG = LoggerFactory.getLogger(WebController.class);
 
     @ResponseBody
-    @RequestMapping("/static/{name}")
-    public ResponseEntity<byte[]> requestStaticfile(@PathVariable(name = "name") String name) throws IOException {
+    @RequestMapping({ "/static/{name}", "favicon.ico" })
+    // TODO optional name
+    public ResponseEntity<byte[]> requestStaticfile(@PathVariable(name = "name", required = false) String name) throws IOException {
         try {
             return ResponseEntity.ok(Files.readAllBytes(Path.of("static/" + name)));
         } catch (NoSuchFileException e) {
@@ -35,7 +36,7 @@ public class WebController {
 
     @ResponseBody
     @RequestMapping({ "/{name}", "/" })
-    public byte[] requestMarkdown(@PathVariable(name = "name", required = false) Optional<String> name) throws IOException {
+    public ResponseEntity<byte[]> requestMarkdown(@PathVariable(name = "name", required = false) Optional<String> name) throws IOException {
         if (name.isEmpty()) {
             LOG.info("Root / requested");
         } else {
@@ -44,7 +45,12 @@ public class WebController {
 
         // Read content from markdown file.
         var filename = convertFilename(name);
-        var content = Files.readString(Path.of(filename));
+        String content;
+        try {
+            content = Files.readString(Path.of(filename));
+        } catch (NoSuchFileException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
 
         // Parse to markdown.
         Parser parser = Parser.builder().build();
@@ -56,7 +62,7 @@ public class WebController {
         String template = Files.readString(Path.of("static/template.html"));
         template = template.replaceFirst("\\$\\$\\$", output);
 
-        return template.getBytes(Charset.defaultCharset());
+        return ResponseEntity.ok(template.getBytes(Charset.defaultCharset()));
     }
 
     String convertFilename(Optional<String> name) {
