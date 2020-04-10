@@ -23,7 +23,11 @@ public class WebController {
     @ResponseBody
     @RequestMapping({ "/{name}", "/" })
     public byte[] requestMarkdown(@PathVariable(name = "name", required = false) Optional<String> name) throws IOException {
-        LOG.info("Markdown file '{}' requested", name);
+        if (name.isEmpty()) {
+            LOG.info("Root / requested");
+        } else {
+            LOG.info("Markdown file '{}' requested", name.get());
+        }
 
         // Read content from markdown file.
         var filename = convertFilename(name);
