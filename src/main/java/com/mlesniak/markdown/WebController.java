@@ -35,7 +35,11 @@ public class WebController {
         HtmlRenderer renderer = HtmlRenderer.builder().build();
         String output = renderer.render(document);
 
-        return output.getBytes(Charset.defaultCharset());
+        // Inject markdown into pre-defined template.
+        String template = Files.readString(Path.of("static/template.html"));
+        template = template.replaceFirst("\\$\\$\\$", output);
+
+        return template.getBytes(Charset.defaultCharset());
     }
 
     String convertFilename(Optional<String> name) {
