@@ -11,3 +11,4 @@
 [ ] Log to JSON file / one entry per line including exceptions
 [X] Refactor WebController
 [ ] Configurable names for directories, e.g. static
+[ ] Log performance metrics for evaluation

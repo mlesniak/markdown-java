@@ -6,8 +6,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
-// TODO Global exception handler.
-
 @SpringBootApplication
 public class MarkdownApplication implements CommandLineRunner {
 	Logger LOG = LoggerFactory.getLogger(MarkdownApplication.class);

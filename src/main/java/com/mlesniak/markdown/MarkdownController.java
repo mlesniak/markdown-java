@@ -29,14 +29,15 @@ public class MarkdownController {
     /**
      * Handler for all markdown files.
      *
-     * @param name
-     *                 requested file (with .html suffix)
+     * @param name requested file (with .html suffix)
      * @return content
      * @throws IOException
      */
     @ResponseBody
-    @RequestMapping({ "/{name}", "/" })
-    public ResponseEntity<byte[]> requestContentFile(@PathVariable(name = "name", required = false) Optional<String> name) throws IOException {
+    @RequestMapping({"/{name}", "/"})
+    public ResponseEntity<byte[]> requestContentFile(
+            @PathVariable(name = "name", required = false) Optional<String> name)
+            throws IOException {
         Optional<String> ocontent = getMarkdown(name);
         if (ocontent.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -52,8 +53,7 @@ public class MarkdownController {
     /**
      * Return markdown for a given filename.
      *
-     * @param name
-     *                 the filename. If no filename is given, index.md is used.
+     * @param name the filename. If no filename is given, index.md is used.
      * @return the content of the markdown file or empty, if no file was found.
      */
     private Optional<String> getMarkdown(Optional<String> name) {
@@ -75,11 +75,10 @@ public class MarkdownController {
     }
 
     /**
-     * Injects the html content of the converted markdown into the default template
-     * file by replacing $$$ with the converted content.
+     * Injects the html content of the converted markdown into the default template file by
+     * replacing $$$ with the converted content.
      *
-     * @param html
-     *                 the markdown html
+     * @param html the markdown html
      * @return a full-featured html file
      * @throws IOException
      */
@@ -92,8 +91,7 @@ public class MarkdownController {
     /**
      * Convert markdown to HTML.
      *
-     * @param markdown
-     *                     source markdown
+     * @param markdown source markdown
      * @return converted html
      */
     private String toHTML(String markdown) {
@@ -105,11 +103,10 @@ public class MarkdownController {
     }
 
     /**
-     * Convert the name of a requested html file to its pendant in markdown by
-     * replacing the last .html suffix with .md.
+     * Convert the name of a requested html file to its pendant in markdown by replacing the last
+     * .html suffix with .md.
      *
-     * @param name
-     *                 requested filename.
+     * @param name requested filename.
      * @return markdown filename.
      */
     String convertFilename(Optional<String> name) {

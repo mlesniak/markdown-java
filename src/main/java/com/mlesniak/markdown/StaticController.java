@@ -29,8 +29,9 @@ public class StaticController {
      * @throws IOException
      */
     @ResponseBody
-    @RequestMapping({ "/static/{name}", "favicon.ico" })
-    public ResponseEntity<byte[]> requestStaticfile(@PathVariable(name = "name", required = false) String name) throws IOException {
+    @RequestMapping({"/static/{name}", "favicon.ico"})
+    public ResponseEntity<byte[]> requestStaticfile(
+            @PathVariable(name = "name", required = false) String name) throws IOException {
         try {
             return ResponseEntity.ok(Files.readAllBytes(Path.of("static/" + name)));
         } catch (NoSuchFileException e) {
