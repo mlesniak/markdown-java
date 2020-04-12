@@ -34,6 +34,7 @@ public class WebController {
         }
     }
 
+    // TODO refactoring
     @ResponseBody
     @RequestMapping({ "/{name}", "/" })
     public ResponseEntity<byte[]> requestMarkdown(@PathVariable(name = "name", required = false) Optional<String> name) throws IOException {
