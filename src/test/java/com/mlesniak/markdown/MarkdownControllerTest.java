@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class WebControllerTest {
-    Logger LOG = LoggerFactory.getLogger(WebControllerTest.class);
+public class MarkdownControllerTest {
+    Logger LOG = LoggerFactory.getLogger(MarkdownControllerTest.class);
 
     @Autowired
-    private WebController wc;
+    private MarkdownController wc;
 
     @Test
     public void convertFilename() {
