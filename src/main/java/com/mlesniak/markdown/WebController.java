@@ -23,6 +23,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class WebController {
     Logger LOG = LoggerFactory.getLogger(WebController.class);
 
+    /**
+     * Handler to serve all static files and the favicon.
+     *
+     * @param name requested name inside the static/ directory.
+     * @return content
+     * @throws IOException
+     */
     @ResponseBody
     @RequestMapping({ "/static/{name}", "favicon.ico" })
     public ResponseEntity<byte[]> requestStaticfile(@PathVariable(name = "name", required = false) String name) throws IOException {
@@ -34,38 +41,88 @@ public class WebController {
         }
     }
 
-    // TODO refactoring
+    /**
+     * Handler for all markdown files.
+     *
+     * @param name requested file (with .html suffix)
+     * @return content
+     * @throws IOException
+     */
     @ResponseBody
     @RequestMapping({ "/{name}", "/" })
-    public ResponseEntity<byte[]> requestMarkdown(@PathVariable(name = "name", required = false) Optional<String> name) throws IOException {
+    public ResponseEntity<byte[]> requestContentFile(@PathVariable(name = "name", required = false) Optional<String> name) throws IOException {
+        Optional<String> ocontent = getMarkdown(name);
+        if (ocontent.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        String content = ocontent.get();
+
+        String html = toHTML(content);
+        String htmlInTemplate = useTemplate(html);
+
+        return ResponseEntity.ok(htmlInTemplate.getBytes(Charset.defaultCharset()));
+    }
+
+    /**
+     * Return markdown for a given filename.
+     *
+     * @param name
+     *                 the filename. If no filename is given, index.md is used.
+     * @return the content of the markdown file or empty, if no file was found.
+     */
+    private Optional<String> getMarkdown(Optional<String> name) {
         if (name.isEmpty()) {
             LOG.info("Root / requested");
         } else {
             LOG.info("File '{}' requested", name.get());
         }
-
-        // Read content from markdown file.
         var filename = convertFilename(name);
-        String content;
         try {
-            content = Files.readString(Path.of(filename));
+            return Optional.of(Files.readString(Path.of(filename)));
         } catch (NoSuchFileException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            LOG.info("Content file {} not found", filename);
+            return Optional.empty();
+        } catch (IOException e) {
+            LOG.info("IO error on file {}", filename, e);
+            return Optional.empty();
         }
-
-        // Parse to markdown.
-        Parser parser = Parser.builder().build();
-        Node document = parser.parse(content);
-        HtmlRenderer renderer = HtmlRenderer.builder().build();
-        String output = renderer.render(document);
-
-        // Inject markdown into pre-defined template.
-        String template = Files.readString(Path.of("static/template.html"));
-        template = template.replaceFirst("\\$\\$\\$", output);
-
-        return ResponseEntity.ok(template.getBytes(Charset.defaultCharset()));
     }
 
+    /**
+     * Injects the html content of the converted markdown into the default template
+     * file by replacing $$$ with the converted content.
+     *
+     * @param html
+     *                 the markdown html
+     * @return a full-featured html file
+     * @throws IOException
+     */
+    private String useTemplate(String html) throws IOException {
+        String template = Files.readString(Path.of("static/template.html"));
+        template = template.replaceFirst("\\$\\$\\$", html);
+        return template;
+    }
+
+    /**
+     * Convert markdown to HTML.
+     *
+     * @param markdown source markdown
+     * @return converted html
+     */
+    private String toHTML(String markdown) {
+        Parser parser = Parser.builder().build();
+        Node document = parser.parse(markdown);
+        HtmlRenderer renderer = HtmlRenderer.builder().escapeHtml(false).build();
+        String output = renderer.render(document);
+        return output;
+    }
+
+    /**
+     * Convert the name of a requested html file to its pendant in markdown by replacing the last .html suffix with .md.
+     *
+     * @param name requested filename.
+     * @return markdown filename.
+     */
     String convertFilename(Optional<String> name) {
         var filename = name.orElseGet(() -> "index.html");
         filename = filename.replaceAll("\\.html$", ".md");

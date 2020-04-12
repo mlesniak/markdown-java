@@ -9,3 +9,5 @@
 [ ] Add Sonarqube code analysis to GitHub
 [ ] Push to GitHub
 [ ] Log to JSON file / one entry per line including exceptions
+[ ] Refactor WebController
+[ ] Configurable names for directories, e.g. static
