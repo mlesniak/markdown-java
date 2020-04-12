@@ -28,6 +28,7 @@ public class WebController {
     // TODO optional name
     public ResponseEntity<byte[]> requestStaticfile(@PathVariable(name = "name", required = false) String name) throws IOException {
         try {
+            
             return ResponseEntity.ok(Files.readAllBytes(Path.of("static/" + name)));
         } catch (NoSuchFileException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
