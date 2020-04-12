@@ -5,6 +5,9 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import org.commonmark.node.Node;
@@ -21,10 +24,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Serve markdown content files.
+ *
+ * We also use a simple cache for markdown-to-html conversion which can be reset by calling the endpoint /api/cache/reset.
  */
 @Controller
 public class MarkdownController {
     Logger LOG = LoggerFactory.getLogger(MarkdownController.class);
+
+    private Map<String, String> cache = new HashMap<>();
 
     /**
      * Handler for all markdown files.
@@ -63,8 +70,19 @@ public class MarkdownController {
             LOG.info("File '{}' requested", name.get());
         }
         var filename = convertFilename(name);
+
+        // Check cache.
+        if (cache.containsKey(filename)) {
+            String value = cache.get(filename);
+            LOG.info("Returning cached file for {} with size={}", filename, value.length());
+            return Optional.of(value);
+        }
+
         try {
-            return Optional.of(Files.readString(Path.of(filename)));
+            String content = Files.readString(Path.of(filename));
+            LOG.info("Adding {} with size={} to cache", filename, content.length());
+            cache.put(filename, content);
+            return Optional.of(content);
         } catch (NoSuchFileException e) {
             LOG.info("Content file {} not found", filename);
             return Optional.empty();
@@ -113,5 +131,18 @@ public class MarkdownController {
         var filename = name.orElseGet(() -> "index.html");
         filename = filename.replaceAll("\\.html$", ".md");
         return filename;
+    }
+
+    /**
+     * Clear cache, e.g. after adding content.
+     *
+     * @return a simple JSON map.
+     */
+    @ResponseBody
+    @RequestMapping("/api/cache/reset")
+    public Map<String, String> resetCache() {
+        LOG.info("Cache cleared");
+        cache = new HashMap<>();
+        return Collections.singletonMap("result", "OK");
     }
 }
