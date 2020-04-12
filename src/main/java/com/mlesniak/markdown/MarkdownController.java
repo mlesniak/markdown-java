@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * Serve markdown content files.
+ */
 @Controller
 public class MarkdownController {
     Logger LOG = LoggerFactory.getLogger(MarkdownController.class);
@@ -26,7 +29,8 @@ public class MarkdownController {
     /**
      * Handler for all markdown files.
      *
-     * @param name requested file (with .html suffix)
+     * @param name
+     *                 requested file (with .html suffix)
      * @return content
      * @throws IOException
      */
@@ -88,7 +92,8 @@ public class MarkdownController {
     /**
      * Convert markdown to HTML.
      *
-     * @param markdown source markdown
+     * @param markdown
+     *                     source markdown
      * @return converted html
      */
     private String toHTML(String markdown) {
@@ -100,9 +105,11 @@ public class MarkdownController {
     }
 
     /**
-     * Convert the name of a requested html file to its pendant in markdown by replacing the last .html suffix with .md.
+     * Convert the name of a requested html file to its pendant in markdown by
+     * replacing the last .html suffix with .md.
      *
-     * @param name requested filename.
+     * @param name
+     *                 requested filename.
      * @return markdown filename.
      */
     String convertFilename(Optional<String> name) {
