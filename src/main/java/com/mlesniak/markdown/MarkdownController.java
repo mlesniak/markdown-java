@@ -83,7 +83,7 @@ public class MarkdownController {
 
         try {
             String content = Files.readString(Path.of(filename));
-            LOG.info("Adding file={} with size={} to cache", kv("filename", name.get()),
+            LOG.info("Adding file={} with size={} to cache", kv("filename", filename),
                     kv("length", content.length()));
             cache.put(filename, content);
             return Optional.of(content);
