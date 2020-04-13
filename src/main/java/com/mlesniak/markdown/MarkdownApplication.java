@@ -10,7 +10,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 public class MarkdownApplication implements CommandLineRunner {
 	Logger logger = LoggerFactory.getLogger(MarkdownApplication.class);
 
-	public static void main(String[] args) {
+	public static void main(String[] args) { // NOSONAR False positive.
 		new SpringApplicationBuilder(MarkdownApplication.class).logStartupInfo(false).run(args);
 	}
 
