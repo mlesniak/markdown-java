@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,8 +36,9 @@ public class StaticController {
             @PathVariable(name = "name", required = false) String name) throws IOException {
         try {
             String directory = "static/";
-            Path path = Path.of(directory, name);
-            byte[] data = Files.readAllBytes(path);
+            Path p1 = Paths.get(directory);
+            Path p2 = p1.resolve(name);
+            byte[] data = Files.readAllBytes(p2); // NOSONAR The GetMapping disallows dots in the name.
             return ResponseEntity.ok(data);
         } catch (NoSuchFileException e) {
             logger.info("Requested static file {} not found", name);

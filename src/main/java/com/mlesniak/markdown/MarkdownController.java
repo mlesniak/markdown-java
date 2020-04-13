@@ -70,29 +70,29 @@ public class MarkdownController {
         if (name.isEmpty()) {
             logger.info("Root / requested");
         } else {
-            logger.info("File file={} requested", StructuredArguments.kv("filename", name.get()));
+            logger.info("File {} requested", StructuredArguments.kv("filename", name.get()));
         }
         var filename = convertFilename(name);
 
         // Check cache.
         if (cache.containsKey(filename)) {
             String value = cache.get(filename);
-            logger.info("Returning cached file={} with size={}", kv("filename", filename),
+            logger.info("Returning cached {} with {}", kv("filename", filename),
                     kv("length", value.length()));
             return Optional.of(value);
         }
 
         try {
             String content = Files.readString(Path.of(filename));
-            logger.info("Adding file={} with size={} to cache", kv("filename", filename),
+            logger.info("Adding {} with size={} to cache", kv("filename", filename),
                     kv("length", content.length()));
             cache.put(filename, content);
             return Optional.of(content);
         } catch (NoSuchFileException e) {
-            logger.info("Content file={} not found", kv("filename", filename));
+            logger.info("Content {} not found", kv("filename", filename));
             return Optional.empty();
         } catch (IOException e) {
-            logger.info("IO error on file={}", kv("filename", filename), e);
+            logger.info("IO error on {}", kv("filename", filename), e);
             return Optional.empty();
         }
     }
