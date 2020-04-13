@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
-   <appender name="SYSLOG" class="ch.qos.logback.classic.net.SyslogAppender">
-      <syslogHost>logsene-syslog-receiver.eu.sematext.com</syslogHost>
-      <port>514</port>
-      <facility>LOCAL0</facility>
-      <suffixPattern>${SEMATEXT_TOKEN}: %message</suffixPattern>
-   </appender>
-
    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+      <!-- <encoder class="net.logstash.logback.encoder.LogstashEncoder" /> -->
       <encoder>
          <pattern>%d{yyyy-MM-dd HH:mm:ss.sss} %-5p %m%n</pattern>
       </encoder>
    </appender>
 
+   <appender name="SYSLOG" class="net.logstash.logback.appender.LogstashUdpSocketAppender">
+      <host>logsene-syslog-receiver.eu.sematext.com</host>
+      <port>12201</port>
+      <layout class="net.logstash.logback.layout.LogstashLayout">
+         <customFields>{"logsene-app-token":"${SEMATEXT_TOKEN}"}</customFields>
+      </layout>
+   </appender>
+
+   <root level="WARN">
+      <appender-ref ref="STDOUT" />
+      <appender-ref ref="SYSLOG" />
+   </root>
+
    <logger name="com.mlesniak" level="INFO" additivity="false">
       <appender-ref ref="STDOUT" />
       <appender-ref ref="SYSLOG" />
    </logger>
-
-   <logger name="ch.qos" level="DEBUG" additivity="false">
-      <appender-ref ref="STDOUT" />
-   </logger>
-
-
-   <root level="WARN">
-      <appender-ref ref="STDOUT" />
-   </root>
 </configuration>

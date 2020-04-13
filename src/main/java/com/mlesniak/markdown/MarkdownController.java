@@ -1,5 +1,6 @@
 package com.mlesniak.markdown;
 
+import static net.logstash.logback.argument.StructuredArguments.kv;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -9,7 +10,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
@@ -21,11 +21,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import net.logstash.logback.argument.StructuredArguments;
 
 /**
  * Serve markdown content files.
  *
- * We also use a simple cache for markdown-to-html conversion which can be reset by calling the endpoint /api/cache/reset.
+ * We also use a simple cache for markdown-to-html conversion which can be reset by calling the
+ * endpoint /api/cache/reset.
  */
 @Controller
 public class MarkdownController {
@@ -67,27 +69,29 @@ public class MarkdownController {
         if (name.isEmpty()) {
             LOG.info("Root / requested");
         } else {
-            LOG.info("File '{}' requested", name.get());
+            LOG.info("File file={} requested", StructuredArguments.kv("filename", name.get()));
         }
         var filename = convertFilename(name);
 
         // Check cache.
         if (cache.containsKey(filename)) {
             String value = cache.get(filename);
-            LOG.info("Returning cached file for {} with size={}", filename, value.length());
+            LOG.info("Returning cached file={} with size={}", kv("filename", name.get()),
+                    kv("length", value.length()));
             return Optional.of(value);
         }
 
         try {
             String content = Files.readString(Path.of(filename));
-            LOG.info("Adding {} with size={} to cache", filename, content.length());
+            LOG.info("Adding file={} with size={} to cache", kv("filename", name.get()),
+                    kv("length", content.length()));
             cache.put(filename, content);
             return Optional.of(content);
         } catch (NoSuchFileException e) {
-            LOG.info("Content file {} not found", filename);
+            LOG.info("Content file={} not found", kv("filename", name.get()));
             return Optional.empty();
         } catch (IOException e) {
-            LOG.info("IO error on file {}", filename, e);
+            LOG.info("IO error on file={}", kv("filename", name.get()), e);
             return Optional.empty();
         }
     }
