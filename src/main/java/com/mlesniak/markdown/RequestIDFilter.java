@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Order(1)
 public class RequestIDFilter implements Filter {
-    Logger LOG = LoggerFactory.getLogger(StaticController.class);
+    Logger logger = LoggerFactory.getLogger(StaticController.class);
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -24,9 +24,9 @@ public class RequestIDFilter implements Filter {
 
         String uuid = UUID.randomUUID().toString();
         MDC.put("request", uuid);
-        LOG.info("Starting request with request={}", uuid);
+        logger.info("Starting request with request={}", uuid);
         chain.doFilter(request, response);
-        LOG.info("Finished request with request={}", uuid);
+        logger.info("Finished request with request={}", uuid);
         MDC.remove("request");
     }
 

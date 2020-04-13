@@ -12,11 +12,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
-    Logger LOG = LoggerFactory.getLogger(CustomExceptionHandler.class);
+    Logger logger = LoggerFactory.getLogger(CustomExceptionHandler.class);
 
     @ExceptionHandler
     protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
-        LOG.warn("Unhandled exception {}", ex.getClass().getName(), ex);
+        logger.warn("Unhandled exception {}", ex.getClass().getName(), ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 }

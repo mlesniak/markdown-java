@@ -8,7 +8,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 
 @SpringBootApplication
 public class MarkdownApplication implements CommandLineRunner {
-	Logger LOG = LoggerFactory.getLogger(MarkdownApplication.class);
+	Logger logger = LoggerFactory.getLogger(MarkdownApplication.class);
 
 	public static void main(String[] args) {
 		new SpringApplicationBuilder(MarkdownApplication.class).logStartupInfo(false).run(args);
@@ -16,6 +16,6 @@ public class MarkdownApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		LOG.info("Starting webserver");
+		logger.info("Starting webserver");
 	}
 }

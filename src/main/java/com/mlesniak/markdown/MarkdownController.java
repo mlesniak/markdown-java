@@ -33,7 +33,7 @@ import net.logstash.logback.argument.StructuredArguments;
  */
 @Controller
 public class MarkdownController {
-    Logger LOG = LoggerFactory.getLogger(MarkdownController.class);
+    Logger logger = LoggerFactory.getLogger(MarkdownController.class);
 
     private Map<String, String> cache = new HashMap<>();
 
@@ -69,31 +69,31 @@ public class MarkdownController {
      */
     private Optional<String> getMarkdown(Optional<String> name) {
         if (name.isEmpty()) {
-            LOG.info("Root / requested");
+            logger.info("Root / requested");
         } else {
-            LOG.info("File file={} requested", StructuredArguments.kv("filename", name.get()));
+            logger.info("File file={} requested", StructuredArguments.kv("filename", name.get()));
         }
         var filename = convertFilename(name);
 
         // Check cache.
         if (cache.containsKey(filename)) {
             String value = cache.get(filename);
-            LOG.info("Returning cached file={} with size={}", kv("filename", filename),
+            logger.info("Returning cached file={} with size={}", kv("filename", filename),
                     kv("length", value.length()));
             return Optional.of(value);
         }
 
         try {
             String content = Files.readString(Path.of(filename));
-            LOG.info("Adding file={} with size={} to cache", kv("filename", filename),
+            logger.info("Adding file={} with size={} to cache", kv("filename", filename),
                     kv("length", content.length()));
             cache.put(filename, content);
             return Optional.of(content);
         } catch (NoSuchFileException e) {
-            LOG.info("Content file={} not found", kv("filename", filename));
+            logger.info("Content file={} not found", kv("filename", filename));
             return Optional.empty();
         } catch (IOException e) {
-            LOG.info("IO error on file={}", kv("filename", filename), e);
+            logger.info("IO error on file={}", kv("filename", filename), e);
             return Optional.empty();
         }
     }
@@ -147,7 +147,7 @@ public class MarkdownController {
     @ResponseBody
     @PostMapping("/api/cache/reset")
     public Map<String, String> resetCache() {
-        LOG.info("Cache cleared");
+        logger.info("Cache cleared");
         cache = new HashMap<>();
         return Collections.singletonMap("result", "OK");
     }

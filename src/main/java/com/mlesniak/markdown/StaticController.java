@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class StaticController {
-    Logger LOG = LoggerFactory.getLogger(StaticController.class);
+    Logger logger = LoggerFactory.getLogger(StaticController.class);
 
     /**
      * Handler to serve all static files and the favicon.
@@ -36,13 +36,13 @@ public class StaticController {
         try {
             String directory = "static/";
             if (!FileUtils.directoryContains(new File(directory), new File(name))) {
-                LOG.warn("File outside static directory. file={}", name);
+                logger.warn("File outside static directory. file={}", name);
                 throw new NoSuchFileException(name);
             }
             byte[] data = Files.readAllBytes(Path.of(directory + name));
             return ResponseEntity.ok(data);
         } catch (NoSuchFileException e) {
-            LOG.info("Requested static file {} not found", name);
+            logger.info("Requested static file {} not found", name);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
