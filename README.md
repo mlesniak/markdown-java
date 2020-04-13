@@ -6,9 +6,10 @@
 [ ] Monitor uptime of the server and alert in case of problems (using free plans)
 [ ] Store git version on build and define endpoint
 [ ] Create Dockerfile
-[ ] Add Sonarqube code analysis to GitHub
+[X] Add Sonarqube code analysis (mvn verify sonar:sonar)
+[ ] Add Sonarqube icon to GitHub page
 [X] Push to GitHub
-[ ] Clean up README and make repository public
+[ ] Clean up README
 [ ] Log to JSON file / one entry per line including exceptions
 [X] Refactor WebController
 [ ] Configurable names for directories, e.g. static
