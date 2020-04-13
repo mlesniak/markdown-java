@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,7 +30,7 @@ public class StaticController {
      * @throws IOException
      */
     @ResponseBody
-    @RequestMapping({"/static/{name}", "favicon.ico"})
+    @GetMapping({"/static/{name}", "favicon.ico"})
     public ResponseEntity<byte[]> requestStaticfile(
             @PathVariable(name = "name", required = false) String name) throws IOException {
         try {

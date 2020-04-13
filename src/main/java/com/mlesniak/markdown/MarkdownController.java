@@ -18,7 +18,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import net.logstash.logback.argument.StructuredArguments;
@@ -43,7 +45,7 @@ public class MarkdownController {
      * @throws IOException
      */
     @ResponseBody
-    @RequestMapping({"/{name}", "/"})
+    @GetMapping({"/{name}", "/"})
     public ResponseEntity<byte[]> requestContentFile(
             @PathVariable(name = "name", required = false) Optional<String> name)
             throws IOException {
@@ -143,7 +145,7 @@ public class MarkdownController {
      * @return a simple JSON map.
      */
     @ResponseBody
-    @RequestMapping("/api/cache/reset")
+    @PostMapping("/api/cache/reset")
     public Map<String, String> resetCache() {
         LOG.info("Cache cleared");
         cache = new HashMap<>();
