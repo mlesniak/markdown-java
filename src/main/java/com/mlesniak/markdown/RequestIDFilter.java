@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Order(1)
 public class RequestIDFilter implements Filter {
-    Logger logger = LoggerFactory.getLogger(StaticController.class);
+    Logger logger = LoggerFactory.getLogger(RequestIDFilter.class);
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)

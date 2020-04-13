@@ -2,6 +2,7 @@
 
 # TODO
 
+[ ] Fix all sonarqube issues
 [X] Global exception handler
 [X] Caching
 [X] Log to Sematext (https://apps.eu.sematext.com/)
@@ -10,8 +11,7 @@
 [ ] Create Dockerfile
 [X] Add Sonarqube code analysis (mvn verify sonar:sonar)
 [X] Add Sonarqube icon to GitHub page
-[ ] Configure hard-core quality gate on sonarcloud
-[ ] Fix all sonarqube issues
+[X] Configure hard-core quality gate on sonarcloud
 [ ] Add TravisCI build system
 [X] Push to GitHub
 [ ] Clean up README
