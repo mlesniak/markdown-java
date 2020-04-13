@@ -11,6 +11,8 @@
 [X] Add Sonarqube code analysis (mvn verify sonar:sonar)
 [X] Add Sonarqube icon to GitHub page
 [ ] Configure hard-core quality gate on sonarcloud
+[ ] Fix all sonarqube issues
+[ ] Add TravisCI build system
 [X] Push to GitHub
 [ ] Clean up README
 [ ] Log to JSON file / one entry per line including exceptions
