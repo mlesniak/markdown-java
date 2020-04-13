@@ -7,7 +7,8 @@
 [ ] Store git version on build and define endpoint
 [ ] Create Dockerfile
 [ ] Add Sonarqube code analysis to GitHub
-[ ] Push to GitHub
+[X] Push to GitHub
+[ ] Clean up README and make repository public
 [ ] Log to JSON file / one entry per line including exceptions
 [X] Refactor WebController
 [ ] Configurable names for directories, e.g. static
