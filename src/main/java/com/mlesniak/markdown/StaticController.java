@@ -35,6 +35,10 @@ public class StaticController {
             @PathVariable(name = "name", required = false) String name) throws IOException {
         try {
             String directory = "static/";
+            if (!FileUtils.directoryContains(new File(directory), new File(name))) {
+                LOG.warn("File outside static directory. file={}", name);
+                throw new NoSuchFileException(name);
+            }
             byte[] data = Files.readAllBytes(Path.of(directory + name));
             return ResponseEntity.ok(data);
         } catch (NoSuchFileException e) {
