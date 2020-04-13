@@ -2,22 +2,22 @@
 
 # TODO
 
-[ ] Store git version on build and define endpoint
-[ ] Add TravisCI build system
-[ ] Log to JSON file / one entry per line including exceptions
-[ ] Monitor uptime of the server and alert in case of problems (using free plans)
-[ ] Create Dockerfile
-[ ] Clean up README
-[ ] Configurable names for directories, e.g. static
-[ ] Log performance metrics for evaluation
-[ ] favicon.ico logic will not work as implemented
-[X] Fix all sonarqube issues
-[X] Global exception handler
-[X] Caching
-[X] Log to Sematext (https://apps.eu.sematext.com/)
-[X] Add Sonarqube code analysis (mvn verify sonar:sonar)
-[X] Add Sonarqube icon to GitHub page
-[X] Configure hard-core quality gate on sonarcloud
-[X] Push to GitHub
-[X] Refactor WebController
-[X] Add request uuid in mdc using custom filter
+- [ ] Store git version on build and define endpoint
+- [ ] Add TravisCI build system
+- [ ] Log to JSON file / one entry per line including exceptions
+- [ ] Monitor uptime of the server and alert in case of problems (using free plans)
+- [ ] Create Dockerfile
+- [ ] Clean up README
+- [ ] Configurable names for directories, e.g. static
+- [ ] Log performance metrics for evaluation
+- [ ] favicon.ico logic will not work as implemented
+- [X] Fix all sonarqube issues
+- [X] Global exception handler
+- [X] Caching
+- [X] Log to Sematext (https://apps.eu.sematext.com/)
+- [X] Add Sonarqube code analysis (mvn verify sonar:sonar)
+- [X] Add Sonarqube icon to GitHub page
+- [X] Configure hard-core quality gate on sonarcloud
+- [X] Push to GitHub
+- [X] Refactor WebController
+- [X] Add request uuid in mdc using custom filter
