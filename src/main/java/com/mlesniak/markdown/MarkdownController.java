@@ -76,7 +76,7 @@ public class MarkdownController {
         // Check cache.
         if (cache.containsKey(filename)) {
             String value = cache.get(filename);
-            LOG.info("Returning cached file={} with size={}", kv("filename", name.get()),
+            LOG.info("Returning cached file={} with size={}", kv("filename", filename),
                     kv("length", value.length()));
             return Optional.of(value);
         }
@@ -88,10 +88,10 @@ public class MarkdownController {
             cache.put(filename, content);
             return Optional.of(content);
         } catch (NoSuchFileException e) {
-            LOG.info("Content file={} not found", kv("filename", name.get()));
+            LOG.info("Content file={} not found", kv("filename", filename));
             return Optional.empty();
         } catch (IOException e) {
-            LOG.info("IO error on file={}", kv("filename", name.get()), e);
+            LOG.info("IO error on file={}", kv("filename", filename), e);
             return Optional.empty();
         }
     }
