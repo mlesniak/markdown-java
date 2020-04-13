@@ -1,3 +1,5 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mlesniak_markdown-java&metric=alert_status)](https://sonarcloud.io/dashboard?id=mlesniak_markdown-java)
+
 # TODO
 
 [X] Global exception handler
@@ -7,7 +9,8 @@
 [ ] Store git version on build and define endpoint
 [ ] Create Dockerfile
 [X] Add Sonarqube code analysis (mvn verify sonar:sonar)
-[ ] Add Sonarqube icon to GitHub page
+[X] Add Sonarqube icon to GitHub page
+[ ] Configure hard-core quality gate on sonarcloud
 [X] Push to GitHub
 [ ] Clean up README
 [ ] Log to JSON file / one entry per line including exceptions
