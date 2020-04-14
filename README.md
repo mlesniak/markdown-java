@@ -3,7 +3,6 @@
 
 # TODO
 
-- [ ] Add TravisCI build system
 - [ ] Store git version on build and define endpoint
 - [ ] Log to JSON file / one entry per line including exceptions
 - [ ] Monitor uptime of the server and alert in case of problems (using free plans)
@@ -12,6 +11,7 @@
 - [ ] Configurable names for directories, e.g. static
 - [ ] Log performance metrics for evaluation
 - [ ] favicon.ico logic will not work as implemented
+- [X] Add TravisCI build system
 - [X] Fix all sonarqube issues
 - [X] Global exception handler
 - [X] Caching
