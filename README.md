@@ -2,8 +2,8 @@
 
 # TODO
 
-- [ ] Store git version on build and define endpoint
 - [ ] Add TravisCI build system
+- [ ] Store git version on build and define endpoint
 - [ ] Log to JSON file / one entry per line including exceptions
 - [ ] Monitor uptime of the server and alert in case of problems (using free plans)
 - [ ] Create Dockerfile
