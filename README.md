@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/mlesniak/markdown-java.svg?branch=master)](https://travis-ci.com/mlesniak/markdown-java)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mlesniak_markdown-java&metric=alert_status)](https://sonarcloud.io/dashboard?id=mlesniak_markdown-java)
 
 # TODO
