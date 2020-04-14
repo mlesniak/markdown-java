@@ -7,6 +7,8 @@
 - [ ] Log to JSON file / one entry per line including exceptions
 - [ ] Monitor uptime of the server and alert in case of problems (using free plans)
 - [ ] Create Dockerfile
+- [ ] Add automatic deployment to server on update
+- [ ] Add push-content script and reset cache
 - [ ] Clean up README
 - [ ] Configurable names for directories, e.g. static
 - [ ] Log performance metrics for evaluation
