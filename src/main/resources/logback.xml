@@ -16,7 +16,7 @@
    </appender>
 
    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-      <file>markdown.log</file>
+      <file>${LOG_PATH}/markdown.log</file>
       <append>true</append>
       <immediateFlush>true</immediateFlush>
       <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
