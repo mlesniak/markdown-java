@@ -3,7 +3,6 @@
 
 # TODO
 
-- [ ] Store git version on build and define endpoint
 - [ ] Log to JSON file / one entry per line including exceptions
 - [ ] Monitor uptime of the server and alert in case of problems (using free plans)
 - [ ] Create Dockerfile
@@ -13,6 +12,8 @@
 - [ ] Configurable names for directories, e.g. static
 - [ ] Log performance metrics for evaluation
 - [ ] favicon.ico logic will not work as implemented
+- [ ] Add normal access logs in separate file
+- [X] Store git version on build and add to request filter
 - [X] Add TravisCI build system
 - [X] Fix all sonarqube issues
 - [X] Global exception handler

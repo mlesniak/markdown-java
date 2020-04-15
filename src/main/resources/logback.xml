@@ -7,7 +7,7 @@
       </encoder>
    </appender>
 
-   <appender name="SYSLOG" class="net.logstash.logback.appender.LogstashUdpSocketAppender">
+   <appender name="SEMATEXT" class="net.logstash.logback.appender.LogstashUdpSocketAppender">
       <host>logsene-syslog-receiver.eu.sematext.com</host>
       <port>12201</port>
       <layout class="net.logstash.logback.layout.LogstashLayout">
@@ -15,13 +15,22 @@
       </layout>
    </appender>
 
+   <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+      <file>markdown.log</file>
+      <append>true</append>
+      <immediateFlush>true</immediateFlush>
+      <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+   </appender>
+
    <root level="WARN">
       <appender-ref ref="STDOUT" />
-      <appender-ref ref="SYSLOG" />
+      <appender-ref ref="SEMATEXT" />
+      <appender-ref ref="FILE" />
    </root>
 
    <logger name="com.mlesniak" level="INFO" additivity="false">
       <appender-ref ref="STDOUT" />
-      <appender-ref ref="SYSLOG" />
+      <appender-ref ref="SEMATEXT" />
+      <appender-ref ref="FILE" />
    </logger>
 </configuration>

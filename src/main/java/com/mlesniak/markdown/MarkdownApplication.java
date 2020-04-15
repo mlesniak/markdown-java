@@ -25,9 +25,9 @@ public class MarkdownApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// I'm not sure I like google's auto formatter settings...
-		logger.info("Build info: commit={}, buildTime={}", versionService.getCommit(),
+		logger.info("Starting application. (commit={}, buildTime={})", versionService.getCommit(),
 				versionService.getBuildTime());
 		String port = environment.getProperty("server.port");
-		logger.info("Starting webserver on port={}", port);
+		logger.info("Webserver listening on port={}", port);
 	}
 }
