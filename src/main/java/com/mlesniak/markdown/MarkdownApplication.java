@@ -16,7 +16,7 @@ public class MarkdownApplication implements CommandLineRunner {
 	@Autowired
 	private VersionService versionService;
 	@Autowired
-	Environment environment;
+	private Environment environment;
 
 	public static void main(String[] args) { // NOSONAR False positive.
 		new SpringApplicationBuilder(MarkdownApplication.class).logStartupInfo(false).run(args);
