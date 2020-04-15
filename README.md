@@ -3,7 +3,6 @@
 
 # TODO
 
-- [ ] Log to JSON file / one entry per line including exceptions
 - [ ] Monitor uptime of the server and alert in case of problems (using free plans)
 - [ ] Create Dockerfile
 - [ ] Add automatic deployment to server on update
@@ -13,6 +12,7 @@
 - [ ] Log performance metrics for evaluation
 - [ ] favicon.ico logic will not work as implemented
 - [ ] Add normal access logs in separate file
+- [X] Log to JSON file / one entry per line including exceptions
 - [X] Store git version on build and add to request filter
 - [X] Add TravisCI build system
 - [X] Fix all sonarqube issues
