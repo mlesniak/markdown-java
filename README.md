@@ -3,15 +3,18 @@
 
 # TODO
 
-- [ ] Monitor uptime of the server and alert in case of problems (using free plans)
-- [ ] Create Dockerfile
+- [ ] Add maven-docker plugin
+- [ ] Use GraalVM
+- [ ] Install on server
 - [ ] Add automatic deployment to server on update
+- [ ] Monitor uptime of the server and alert in case of problems (using free plans)
 - [ ] Add push-content script and reset cache
+- [ ] favicon.ico logic will not work as implemented
 - [ ] Clean up README
 - [ ] Configurable names for directories, e.g. static
 - [ ] Log performance metrics for evaluation
-- [ ] favicon.ico logic will not work as implemented
 - [ ] Add normal access logs in separate file
+- [X] Create Dockerfile
 - [X] Log to JSON file / one entry per line including exceptions
 - [X] Store git version on build and add to request filter
 - [X] Add TravisCI build system
@@ -25,3 +28,9 @@
 - [X] Push to GitHub
 - [X] Refactor WebController
 - [X] Add request uuid in mdc using custom filter
+
+# Commands
+
+    docker build -t markdown .
+    docker run --rm -it -e SEMATEXT_TOKEN="..." -p 8080:8080 markdown
+
