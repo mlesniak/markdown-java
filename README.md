@@ -3,17 +3,17 @@
 
 # TODO
 
-- [ ] Add maven-docker plugin
+- [ ] favicon.ico logic will not work as implemented (500/NPE)
 - [ ] Use GraalVM
 - [ ] Install on server
 - [ ] Add automatic deployment to server on update
 - [ ] Monitor uptime of the server and alert in case of problems (using free plans)
 - [ ] Add push-content script and reset cache
-- [ ] favicon.ico logic will not work as implemented
 - [ ] Clean up README
 - [ ] Configurable names for directories, e.g. static
 - [ ] Log performance metrics for evaluation
 - [ ] Add normal access logs in separate file
+- [X] Add maven-docker plugin
 - [X] Create Dockerfile
 - [X] Log to JSON file / one entry per line including exceptions
 - [X] Store git version on build and add to request filter
