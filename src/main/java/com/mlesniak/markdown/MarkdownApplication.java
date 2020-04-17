@@ -26,8 +26,7 @@ public class MarkdownApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		if (environment.getProperty("SEMATEXT_TOKEN") == null) {
-			logger.error("SEMATEXT_TOKEN not defined, aborting");
-			System.exit(0);
+			logger.warn("SEMATEXT_TOKEN not defined, aborting");
 		}
 
 		// I'm not sure I like google's auto formatter settings...
