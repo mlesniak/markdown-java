@@ -38,9 +38,13 @@ public class RequestIDFilter implements Filter {
         try {
             MDC.put("request", uuid);
             MDC.put("commit", commit);
-            logger.info("Starting request with request={}", uuid);
+            if (logger.isDebugEnabled()) {
+                logger.debug("Starting request with request={}", uuid);
+            }
             chain.doFilter(request, response);
-            logger.info("Finished request with request={}", uuid);
+            if (logger.isDebugEnabled()) {
+                logger.debug("Finished request with request={}", uuid);
+            }
         } finally {
             MDC.remove("request");
             MDC.remove("commit");
