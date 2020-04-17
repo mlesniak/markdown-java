@@ -25,6 +25,11 @@ public class MarkdownApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		if (environment.getProperty("SEMATEXT_TOKEN") == null) {
+			logger.error("SEMATEXT_TOKEN not defined, aborting");
+			System.exit(0);
+		}
+
 		// I'm not sure I like google's auto formatter settings...
 		MDC.put("commit", versionService.getCommit());
 		logger.info("Starting application. (commit={}, buildTime={})", versionService.getCommit(),
