@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
+   <property name="LOG_PATH" value="${LOG_PATH:-logs}" />
+
    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
       <!-- <encoder class="net.logstash.logback.encoder.LogstashEncoder" /> -->
       <encoder>
@@ -16,7 +18,7 @@
    </appender>
 
    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-      <file>${LOG_PATH:logs}/markdown.log</file>
+      <file>${LOG_PATH}/markdown.log</file>
       <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
          <fileNamePattern>markdown.%d{yyyy-MM-dd}.log</fileNamePattern>
          <!-- Keep logs for 365 days, maximum 5GB -->
