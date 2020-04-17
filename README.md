@@ -3,7 +3,6 @@
 
 # TODO
 
-- [ ] favicon.ico logic will not work as implemented (500/NPE)
 - [ ] Use GraalVM
 - [ ] Install on server
 - [ ] Add automatic deployment to server on update
@@ -13,6 +12,7 @@
 - [ ] Configurable names for directories, e.g. static
 - [ ] Log performance metrics for evaluation
 - [ ] Add normal access logs in separate file
+- [X] favicon.ico logic will not work as implemented (500/NPE)
 - [X] Add maven-docker plugin
 - [X] Create Dockerfile
 - [X] Log to JSON file / one entry per line including exceptions

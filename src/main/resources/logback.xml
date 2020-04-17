@@ -16,7 +16,7 @@
    </appender>
 
    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-      <file>${LOG_PATH}/markdown.log</file>
+      <file>${LOG_PATH:logs}/markdown.log</file>
       <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
          <fileNamePattern>markdown.%d{yyyy-MM-dd}.log</fileNamePattern>
          <!-- Keep logs for 365 days, maximum 5GB -->

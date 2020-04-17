@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -30,13 +31,18 @@ public class StaticController {
      */
     @ResponseBody
     @GetMapping({"/static/{name}", "favicon.ico"})
-    public ResponseEntity<byte[]> requestStaticfile(
+    public ResponseEntity<byte[]> requestStaticfile(HttpServletRequest request,
             @PathVariable(name = "name", required = false) String name) throws IOException {
         try {
-            String directory = "static/";
+            String directory = "static";
             Path p1 = Paths.get(directory);
+            if (name == null) {
+                // favicon.ico or other files not in static/ but mentioned in the annotation.
+                name = request.getRequestURI();
+            }
             Path p2 = p1.resolve(name);
-            byte[] data = Files.readAllBytes(p2); // NOSONAR The GetMapping disallows dots in the name.
+            byte[] data = Files.readAllBytes(p2); // NOSONAR The GetMapping disallows dots in the
+                                                  // name.
             return ResponseEntity.ok(data);
         } catch (NoSuchFileException e) {
             logger.info("Requested static file {} not found", name);
